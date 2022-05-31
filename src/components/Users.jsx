@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import AddUserForm from './AddUserForm'
 import EditUserForm from './EditUserForm'
+import UsersTable from './UsersTable'
 
 const Users = () => {
 
@@ -19,33 +20,22 @@ const Users = () => {
     const addUser = (user) =>{
 
         user.id = users.length + 1
-        setUsers([...user,user])
+        setUsers([...users,user])
 
     }
 
-    const deletUser = (id) => {
-        setEditing(false)
+    const deleteUser = id => {
+		setEditing(false)
 
-        setUsers(
-            users.filter(
-                (user) => {
-                    user.id !== id
-                }
-            )
-        )
-    }
+		setUsers(users.filter(user => user.id !== id))
+	}
 
     const updateUser = (id, updatedUser) => {
+		setEditing(false)
 
-        setEditing(false)
-
-        setUsers(users.map(
-            (user) => {
-                user.id === id ? updatedUser : user
-            }
-        ))
-
-    }
+		setUsers(users.map(
+			user => (user.id === id ? updatedUser : user)))
+	}
 
     const editRow = (user) => {
 
@@ -57,6 +47,40 @@ const Users = () => {
     return(
         <div>
             <h2>Cadastro de Usuários</h2>
+            <div>
+                <div>
+
+                    {
+                        editing?(
+                            <div>
+                                <h3>Editar Usuário</h3>
+                                <EditUserForm 
+                                    editing={editing}
+                                    setEditing={setEditing}
+                                    currentUser={currentUser}
+                                    updateUser={updateUser}
+                                />
+                            </div>
+                        ):(
+                            <div>
+
+                                <h3>Novo usuário</h3>
+                                <AddUserForm addUser={addUser} />
+
+                            </div>
+                        )
+                    }
+
+                </div>
+                <div>
+                    <h3>Lista de usuários</h3>
+                    <UsersTable 
+                        users={users}
+                        editRow={editRow}
+                        deleteUser={deleteUser}
+                    />
+                </div>
+            </div>
         </div>
     )
 
