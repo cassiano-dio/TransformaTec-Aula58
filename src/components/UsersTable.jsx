@@ -1,4 +1,26 @@
 import React from 'react'
+import styled from 'styled-components'
+import styles from './styles.scss'
+
+
+//botão principal
+const Button = styled.button`
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+`
+
+//Botão personalizado que herda do botão principal
+const EditButton = styled(Button)`
+
+    background-color: lightyellow;
+
+`
+//Botão personalizado que herda do botão principal
+const RemoveButton = styled(Button)`
+    background-color: lightcoral;
+    
+`
 
 const UsersTable = (props) => (
 
@@ -26,21 +48,21 @@ const UsersTable = (props) => (
                             <td>{user.username}</td>
                             <td>{user.email}</td>
 
-                            <button onClick={
+                            <EditButton onClick={
                                 () => {
                                     props.editRow(user)
                                 }
                             }>
                                 Editar
-                            </button>
+                            </EditButton>
 
-                            <button onClick={
+                            <RemoveButton onClick={
                                 () => {
                                     props.deleteUser(user.id)
                                 }
                             } >
                                 Excluir
-                            </button>
+                            </RemoveButton>
 
                         </tr>
 

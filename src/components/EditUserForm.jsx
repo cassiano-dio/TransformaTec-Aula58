@@ -1,7 +1,20 @@
+import { findByLabelText } from '@testing-library/react';
 import React, {useState, useEffect} from 'react';
+import styled from 'styled-components'
+import styles from './styles.module.css'
 
 const EditUserForm = (props) => {
 
+    //Objeto de estilos
+    const editForm = {
+        display: 'flex',
+        flexDirection: 'column'
+    }
+
+    //Componente estilizado
+    const CancelButton = styled.button`
+        background-color: lightcoral
+    `
 
     const [user, setUser] = useState(props.currentUser)
 
@@ -20,7 +33,9 @@ const EditUserForm = (props) => {
     }
 
     return (
-        <form onSubmit={
+        <form 
+            style={editForm}
+            onSubmit={
             (event) => {
                 event.preventDefault()
 
@@ -28,19 +43,36 @@ const EditUserForm = (props) => {
             }
         }>
 
+            <label className={styles.label}>Nome</label>
             <input type="text" name="name" value={user.name} onChange={handleInputChange} placeholder="Nome do usuário" />
+            
+            <label className={styles.label}>Username</label>
             <input type="text" name='username' value={user.username} onChange={handleInputChange} placeholder="Nickname do usuário" />
+            
+            <label className={styles.label}>Email</label>
             <input type="email" name="email" value={user.email} onChange={handleInputChange} placeholder="Email do usuário" />
             
-            <button>Atualizar</button>
+            <button 
+                style={{"background-color": "lightgreen"}}>
+                Atualizar
+            </button>
 
-            <button onClick={
+            {/* <button onClick={
                 () => {
                     props.setEditing(false)
                 }
             }>
                 Cancelar
-            </button>
+            </button> */}
+
+            <CancelButton onClick={
+                () => {
+                    props.setEditing(false)
+                }
+            }>
+                Cancelar
+            </CancelButton>
+            
         </form>
     )
 

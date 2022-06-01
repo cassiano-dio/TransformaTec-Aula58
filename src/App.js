@@ -1,6 +1,5 @@
-import './App.css';
-import AddUserForm from './components/AddUserForm';
 import Users from './components/Users';
+import styles from './components/styles.module.css';
 
 function App() {
   return (
